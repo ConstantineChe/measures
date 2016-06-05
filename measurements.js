@@ -52,7 +52,7 @@ function division(unit, qty, kind)
     var divisible = null;
     var formatDivision = function(qty, divis) {
         if (0 != qty / divis % 1) {
-            throw new Error("Unexpected fraction: " + qty + " " + unit + " can be divided by " + divis);
+            throw new Error("Unexpected fraction: " + qty + " " + unit + " can only be divided by " + divis);
         }
         if (0 == (qty / divis) % 2 && 0 == (1 / divis) % 2) {
             divis = divis * 2;
@@ -88,7 +88,7 @@ function pluralize(unit, qty, kind)
     if (1 < qty && 0 == qty % 1) {
         return qty + " " + unit + "s";
     }
-    throw new Error("Unexpected qty");
+    throw new Error("Unexpected qty: " + qty);
 }
 
 function generate(qty, kind)
@@ -141,7 +141,7 @@ function getUnit (qty, kind)
     if (measure) {
         return measure;
     }
-    throw new Error("Unexpected qty");
+    throw new Error("Unexpected qty: " + qty);
 }
 
 exports.pluralize = pluralize;
