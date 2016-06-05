@@ -46,5 +46,10 @@ exports.generate = function(test) {
     test.equal(measurements.generate(220, "dry"), "a cup");
     test.equal(measurements.generate(110, "dry"), "1/2 of a cup");
     test.equal(measurements.generate(29, "dry"), "an ounce");
+    test.equal(measurements.generate(666, "weight"), "1 1/2 pounds");
+    test.equal(measurements.generate(1337, "weight"), "3 pounds");
+    test.equal(measurements.generate(1.2, "volume"), "1/4 of a tsp");
+    test.equal(measurements.generate(6.3, "volume"), "1 1/4 tsps");
+
     test.done();
 }
