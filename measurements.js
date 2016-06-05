@@ -104,7 +104,7 @@ function round(qty, unit)
     quot = qty - qty % 1;
     rem = qty % 1;
     roundedRem = Math.round(rem / divisible) * divisible;
-    return quot + roundedRem - roundedRem % divisible;
+    return quot + roundedRem;
 }
 
 
