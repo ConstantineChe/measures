@@ -10,7 +10,7 @@ exports.units = function(test) {
     test.equal(measurements.getUnit(216, "dry").unit, "cup");
     test.equal(measurements.getUnit(1666, "dry").unit, "cup");
     test.equal(measurements.getUnit(1666, "volume").unit, "liter");
-    test.throws(function () { measurements.getUnit(-15, "volume");}, Error);
+    test.throws(function () { measurements.getUnit(-15, "volume");}, /Unexpected qty: -15/);
     test.done();
 }
 
@@ -19,7 +19,7 @@ exports.plurality = function(test) {
     test.equal(measurements.pluralize("ounce", 10, "dry"), "10 ounces");
     test.equal(measurements.pluralize("tsp", 0.25, "dry"), "1/4 of a tsp");
     test.equal(measurements.pluralize("cup", 1.5, "dry"), "1 1/2 cups");
-    test.throws(function () { measurements.pluralize("ounce", -1, "volume");}, Error);
+    test.throws(function () { measurements.pluralize("ounce", -1, "volume");}, /Unexpected qty: -1/);
     test.done();
 }
 
@@ -28,8 +28,10 @@ exports.division = function(test) {
     test.equal(measurements.division("tsp", 1.25, "volume"), "1 1/4");
     test.equal(measurements.division("tsp", 1.5, "volume"), "1 1/2");
     test.throws(function () { measurements.division("tsp", 0.3, "dry");}, Error);
-    test.throws(function () { measurements.division("tbsp", 0.25, "volume");}, Error);
-    test.throws(function () { measurements.division("ounce", 1.5, "volume");}, Error);
+    test.throws(function () { measurements.division("tbsp", 0.25, "volume");},
+                /Unexpected fraction: 0.25, tbsp can only be divided by 0.5/);
+    test.throws(function () { measurements.division("ounce", 1.5, "volume");},
+                /Unexpected fraction: 0.5, ounce can only be divided by 1/);
     test.done();
 }
 
@@ -50,9 +52,9 @@ exports.generate = function(test) {
     test.equal(measurements.generate(1337, "weight"), "3 pounds");
     test.equal(measurements.generate(1.2, "volume"), "1/4 of a tsp");
     test.equal(measurements.generate(6.3, "volume"), "1 1/4 tsps");
-    test.throws(function () { measurements.generate(-420, "volume");}, Error);
-    test.throws(function () { measurements.generate(0, "volume");}, Error);
-    test.throws(function () { measurements.generate("many", "volume");}, Error);
-    test.throws(function () { measurements.generate(14, "words");}, Error);
+    test.throws(function () { measurements.generate(-420, "volume");}, /Unexpected qty: -420/);
+    test.throws(function () { measurements.generate(0, "volume");}, /Unexpected qty: 0/);
+    test.throws(function () { measurements.generate("many", "volume");}, /Unexpected qty: many/);
+    test.throws(function () { measurements.generate(14, "words");}, /Unexpected units kind: words/);
     test.done();
 }

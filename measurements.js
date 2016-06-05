@@ -52,7 +52,7 @@ function division(unit, qty, kind)
     var divisible = null;
     var formatDivision = function(qty, divis) {
         if (0 != qty / divis % 1) {
-            throw new Error("Unexpected fraction: " + qty + " " + unit + " can only be divided by " + divis);
+            throw new Error("Unexpected fraction: " + qty + ", " + unit + " can only be divided by " + divis);
         }
         if (0 == (qty / divis) % 2 && 0 == (1 / divis) % 2) {
             divis = divis * 2;
