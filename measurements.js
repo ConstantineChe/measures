@@ -95,13 +95,11 @@ function generate(qty, kind)
 {
     var unit = getUnit(qty, kind);
     var unitQty = round(qty / rates[unit.unit], unit);
-//    console.log(unitQty);
     return pluralize(unit.unit, unitQty, kind);
 }
 
 function round(qty, unit)
 {
-//    console.log(qty);
     divisible = unit.divisible;
     quot = qty - qty % 1;
     rem = qty % 1;
@@ -117,11 +115,9 @@ function approximate(qty, test, divisible)
     } else {
         var divisors = (0.25 == divisible) ? [1, 0.25, 0.5, 0.75] : [1, 0.5];
     }
-//    console.log(divisible);
     var approximation = null;
     divisors.forEach(function (divisor) {
         var proportion = test * divisor / qty;
-//        console.log(proportion + " test " + test + " div" + divisor);
         if (proportion <= 1.1 && proportion >= 0.9) {
             approximation = test * divisor;
         }
@@ -135,7 +131,6 @@ function getUnit (qty, kind)
     var measure = null;
     getKind(kind).forEach(function(unit) {
         var rate = rates[unit.unit];
-//        console.log(unit);
         var approximation = approximate(qty, rate, unit.divisible);
         if (approximation && rate / approximation >= unit.minimum) {
             measure = unit;
@@ -154,5 +149,3 @@ exports.getUnit = getUnit;
 exports.division = division;
 exports.approximate = approximate;
 exports.generate = generate;
-
-//console.log(generate(120, "dry"));
